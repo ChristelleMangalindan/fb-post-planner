@@ -19,6 +19,7 @@ window.fbAsyncInit = function() {
 
 function initialize() {
 
+
 	var baseUrl = "https://graph.facebook.com/v2.1/";
 	getLoginStatus();
     $("#fb-login").click(function(){
@@ -38,9 +39,18 @@ function initialize() {
     });
 
 */
+    $("#post-form [name='date_to_post']").keypress(function(ev){
+        ev.preventDefault();
+    });
 
     $("#post-form").submit(function(){
         $("#post-form [name='access_token']").val(user.accessToken);
+        $("#post-form [name='fbID']").val(user.userID);
+        var date= new Date($("#post-form [name='date_to_post']").val());
+        if(date<new Date()){
+            alert('Invalid Date');
+            return false;
+        }
     });
 
     function getLoginStatus(callback){
@@ -73,6 +83,12 @@ function initialize() {
     */
     function getFBresponse(response){
     	user=response.authResponse;
+        if(user){
+            $("#list").attr("href","/list/"+user.userID);
+        }else{
+            alert("Please Login");
+        }
+        
     }
     function login(){
     	FB.login(function(response){
@@ -93,3 +109,7 @@ function initialize() {
 		$("#fb-login,#fb-logout").toggle();
     }
 }
+
+$(function () {
+    $('#datetimepicker').datetimepicker({ startDate: new Date() });
+});
