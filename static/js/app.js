@@ -25,6 +25,9 @@ function initialize() {
     $("#fb-login").click(function(){
     	getLoginStatus(login);
     })
+    $("#post-now").click(function(){
+        $("#post-form").attr("action","/post-now").submit();
+    })
     $("#fb-logout").click(logout);
     /*
     $("#post-form").submit(function(){

@@ -5,7 +5,7 @@
 
 
     <div class="postlist">
-    	
+    	<div><h3>Scheduled Posts:</h3></div>
     	{% for post in posts %}
     	
        		<div class="panel panel-info">
@@ -26,6 +26,31 @@
        	 	No post to show
        	 </div>
        	 {% endfor %}
+
+    </div>
+
+    <div class="postlist">
+      <div><h3>Posted:</h3></div>
+      {% for post in posted %}
+      
+          <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{post.date_to_post}}
+            <a class="badge pull-right" href="/edit/{{post.key.id()}}">Edit</a>
+            <a class="badge pull-right" href="/delete/{{post.key.id()}}">Delete</a>
+          </h3>
+          
+        </div>
+        <div class="panel-body">
+          {{post.message}}
+        </div>
+      </div>
+      {% else %}
+      
+      <div>
+          No post to show
+         </div>
+         {% endfor %}
 
     </div>
     	
