@@ -1,11 +1,12 @@
-
 <div class="container" style='top: 70px; position: relative;'>
-    <div class='row'>
+    <div class='row well blue'>
 
         <form role="form" id="post-form" action="/" method="post" class="col-md-8">
           <div class="form-group">
             <label for="exampleInputEmail1">Status: </label>
-            <textarea name="message" class="form-control" id="message" required placeholder="Write Something..."></textarea>
+            <div class="fbpost">
+            	<textarea name="message" class="form-control" id="message" required placeholder="Write Something..."></textarea>
+            </div>
             <input type="hidden" name="access_token" value="">
             <input type="hidden" name="fbID" value="">
             <div class="form-group">
@@ -16,7 +17,10 @@
                 </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-default btn-facebook">Post</button>
+          <div class="button">
+	          <button id="button" type="submit" class="btn btn-default btn-facebook">Schedule</button>
+	          <button id="button" type="submit" class="btn btn-default btn-facebook">Post</button>
+          </div>
         </form>
         <div class="fb-like" data-href="https://developers.facebook.com/apps/365075190309550/dashboard/" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
     </div>

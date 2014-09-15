@@ -1,26 +1,36 @@
-
+<html>
+<body>
 <div class="container" style='top: 70px; position: relative;'>
-    <div class='row'>
+    <div class='row well blue'>
 
-    	<div>
-    		{% for post in posts %}
-	      	  	<div>
-	      	  		{{post.message}}
-	      	  	</div>
-	      	  	<div>
-	      	  		{{post.date_to_post}}
-	      	  	</div>
-	      	  	<div><a href="/edit/{{post.key.id()}}">Edit</a></div>
-	      	  	<div><a href="/delete/{{post.key.id()}}">Del</a></div>
-	      	 {% else %}
-	      	 <div>
-	      	 		No posts to show
-	      	 </div>
-	      	 	
 
-	        {% endfor %}
-    	</div>
+    <div class="postlist">
     	
+    	{% for post in posts %}
+    	
+       		<div class="panel panel-info">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">{{post.date_to_post}}
+			    	<a class="badge pull-right" href="/edit/{{post.key.id()}}">Edit</a>
+			    	<a class="badge pull-right" href="/delete/{{post.key.id()}}">Delete</a>
+			    </h3>
+			    
+			  </div>
+			  <div class="panel-body">
+			    {{post.message}}
+			  </div>
+			</div>
+    	{% else %}
+    	
+    	<div>
+       	 	No post to show
+       	 </div>
+       	 {% endfor %}
+
+    </div>
+    	
+
+
     
 
 
