@@ -14,3 +14,16 @@ indexes:
   properties:
   - name: status
   - name: date_to_post
+
+- kind: Posts
+  properties:
+  - name: status
+  - name: user_id
+  - name: date_to_post
+
+- kind: Posts
+  properties:
+  - name: status
+  - name: user_id
+  - name: date_to_post
+    direction: desc

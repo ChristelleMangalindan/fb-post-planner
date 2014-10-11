@@ -101,9 +101,9 @@ class MainHandler(webapp2.RequestHandler):
 class ListPostHandler(webapp2.RequestHandler):
     def get(self,id):
         to_be_post = ndb.gql("Select * from Posts "+
-            "Where user_id = :1 and status = 'TBP' ",id).bind()
+            "Where user_id = :1 and status = 'TBP' ORDER BY date_to_post DESC",id).bind()
         posted = ndb.gql("Select * from Posts "+
-            "Where user_id = :1 and status = 'Posted' ",id).bind()
+            "Where user_id = :1 and status = 'Posted' ORDER BY date_to_post DESC",id).bind()
         template_values={
             "posts":to_be_post,
             "posted": posted
@@ -150,7 +150,7 @@ class DeleteHandler(webapp2.RequestHandler):
     def get(self,id):
         post = Posts.get_by_id(long(id))
         post.key.delete()
-        self.response.write("<script> alert('Edit Successful.');window.location.assign('/list/"+post.user_id+"')</script>")
+        self.response.write("<script> alert('Delete Successful.');window.location.assign('/list/"+post.user_id+"')</script>")
 
 class PostAllScheduledPosts(webapp2.RequestHandler):
     def get(self):

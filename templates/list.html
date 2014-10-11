@@ -10,9 +10,9 @@
     	
        		<div class="panel panel-info">
 			  <div class="panel-heading">
-			    <h3 class="panel-title">{{post.date_to_post}}
+			    <h3 class="panel-title" ><label id="{{post.key.id()}}">{{post.date_to_post}}</label>
 			    	<a class="badge pull-right" href="/edit/{{post.key.id()}}">Edit</a>
-			    	<a class="badge pull-right" href="/delete/{{post.key.id()}}">Delete</a>
+			    	<a class="badge pull-right delete"  href="/delete/{{post.key.id()}}">Delete</a>
 			    </h3>
 			    
 			  </div>
@@ -35,8 +35,8 @@
       
           <div class="panel panel-info">
         <div class="panel-heading">
-          <h3 class="panel-title">{{post.date_to_post}}
-            <a class="badge pull-right" href="/delete/{{post.key.id()}}">Delete</a>
+          <h3 class="panel-title" ><label id="{{post.key.id()}}">{{post.date_to_post}}</label>
+            <a class="badge pull-right delete"  href="/delete/{{post.key.id()}}">Delete</a>
           </h3>
           
         </div>
@@ -63,5 +63,37 @@
     </div>
 
 </div>
+<script type="text/javascript">
+  dates = [
+  {% for post in posted %}
+    {% if loop.last %}
+      {id:"{{post.key.id()}}",date:"{{post.date_to_post}}"}
+    {% else %}
+      {id:"{{post.key.id()}}",date:"{{post.date_to_post}}"},
+    {% endif %}
+  {% endfor %}
+  ];
+  dates2 = [
+  {% for post in posts %}
+    {% if loop.last %}
+      {id:"{{post.key.id()}}",date:"{{post.date_to_post}}"}
+    {% else %}
+      {id:"{{post.key.id()}}",date:"{{post.date_to_post}}"},
+    {% endif %}
+  {% endfor %}
+  ];
+  for(var i=0;i<dates.length;i++){
+    var a = new Date(dates[i].date);
+    var formattedDate = moment(a).format('MMMM Do YYYY, h:mm:ss a');
+    $("#"+dates[i].id).text(formattedDate);
+  }
+  for(var i=0;i<dates2.length;i++){
+    var a = new Date(dates2[i].date);
+    var formattedDate = moment(new Date(dates2[i].date)).format('MMMM Do YYYY, h:mm:ss a');
+    $("#"+dates2[i].id).text(formattedDate);
+  }
+  $("#home").removeClass("active");
+  $(".list").addClass("active");
+</script>
 </body>
 </html>

@@ -28,6 +28,7 @@ function initialize() {
     $("#post-now").click(function(){
         $("#post-form").attr("action","/post-now").submit();
     })
+
     $("#fb-logout").click(logout);
     /*
     $("#post-form").submit(function(){
@@ -47,11 +48,19 @@ function initialize() {
     });
 
     $("#post-form").submit(function(){
+        if(!user){
+            alert('Please Login');
+            return false;
+        }
+
         $("#post-form [name='access_token']").val(user.accessToken);
         $("#post-form [name='fbID']").val(user.userID);
         var date= new Date($("#post-form [name='date_to_post']").val());
+        var msg = $("#post-form [name='message']").val();
+        msg = reverseString(msg);
+        $("#post-form [name='message']").val(msg);
         if(date<new Date()){
-            alert('Invalid Date');
+            alert('Invalid Date.');
             return false;
         }
     });
@@ -105,14 +114,38 @@ function initialize() {
     	FB.logout(function(){
     		toggleLogin();
     		user=null;
+            window.location.assign("/")
     	});
 	}
 
     function toggleLogin(){
 		$("#fb-login,#fb-logout").toggle();
     }
+    $("#list").click(function(){
+        if(!user){
+            alert('Please Login');  
+        }
+    });
 }
 
 $(function () {
     $('#datetimepicker').datetimepicker({ startDate: new Date() });
+    $('#button').click(function(e){
+        if(!$("[name='date_to_post']").val()){
+            alert("Please indicate the time and date to post.");
+            e.preventDefault();   
+        }
+    });
+    $(".delete").click(function(){
+        var a=confirm('Are you sure to delete this post??')
+        if(!a){return false;}
+    })
 });
+function reverseString(str){
+    var out = "";
+    for (var i=0;i<str.length;i++){
+        out = out+ str.charAt(str.length-1-i);
+    }
+    return out;
+
+}
